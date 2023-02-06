@@ -54,6 +54,8 @@ on('ready', function () {
     output += '</tr></table>';
     return output;
   };
+  
+
 
   var getCharOtherAtt = function getCharOtherAtt(cid2) {
     //! Other Attributes
@@ -71,6 +73,37 @@ on('ready', function () {
     output += '<br><strong>AC:</strong> ' + resolveAttr(cid, 'ac').current;
     output += '<br><br>Speed: ' + resolveAttr(cid, 'speed').current + ' ft, Passive Perception: ' + resolveAttr(cid, 'passive_wisdom').current + '<br>Initiative bonus: ' + (resolveAttr(cid, 'initiative_bonus').current > 0 ? '+' + resolveAttr(cid, 'initiative_bonus').current : resolveAttr(cid, 'initiative_bonus').current) + ', Proficiency ' + (resolveAttr(cid, 'pb').current > 0 ? '+' + resolveAttr(cid, 'pb').current : resolveAttr(cid, 'pb').current);
     output += '<br><br>';
+    return output;
+  };
+  var getCharProf = function getCharProf(cid2) {
+    //!Get Character Proficiencies
+    output = '<br><br><strong>Proficiencies:</strong>';
+    var cid = cid2.id;
+    var proficiency = 'Proficiency';
+    skillList = ['acrobatics', 'animal_handling', 'arcana', 'athletics', 'deception', 'history', 'insight', 'intimidation', 'investigation', 'medicine', 'nature', 'perception', 'performance', 'persuasion', 'religion', 'sleight_of_hand', 'stealth', 'survival']
+    profList = [];
+    var n = 0;
+    skillList.forEach(function (prof){
+        if (resolveAttr(cid, prof + '_roll').current.includes(proficiency)) {
+            cap = prof.charAt(0).toUpperCase() + prof.slice(1);
+            replaced = cap.replace(/_/g," ")
+            profList.push(replaced);
+        }
+    });
+    profList.forEach(function (profs){
+        if (n > 0) {
+            output += ", "
+        }
+        if (n % 3 == 0) {
+            output += "<br>"
+        }
+        output += '<small>' + profs + '</small>'
+        n += 1;
+        
+    });
+
+    
+
     return output;
   };
 
@@ -137,7 +170,7 @@ on('ready', function () {
           var charname = character.get('name');
           var charicon = character.get('avatar');
           if (myoutput.length > 0) myoutput += '<br>';
-          myoutput += '<div style=\'display:inline-block; font-variant: small-caps; color:##9d0a0e; font-size:1.8em;margin-top:5px;\'><img src=\'' + charicon + '\' style=\'height:48px;width:auto;margin-right:5px;margin-bottom:0px;margin-top:5px; vertical-align:middle\'>' + charname + '</div>' + getCharOtherAtt(character) + getCharMainAtt(character) + getSpellSlots(character);
+          myoutput += '<div style=\'display:inline-block; font-variant: small-caps; color:##9d0a0e; font-size:1.8em;margin-top:5px;\'><img src=\'' + charicon + '\' style=\'height:48px;width:auto;margin-right:5px;margin-bottom:0px;margin-top:5px; vertical-align:middle\'>' + charname + '</div>' + getCharOtherAtt(character) + getCharMainAtt(character) + getSpellSlots(character) +getCharProf(character);
         }
       });
       sendChat(scname, '/w gm <div style=\'border:1px solid black; background-color: #f9f7ec; padding:8px; border-radius: 6px; font-size:0.85em;line-height:0.95em;\'>' + myoutput + '</div>'); // eslint-disable-line quotes
