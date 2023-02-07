@@ -113,7 +113,7 @@ on('ready', function () {
       toolList = ['other_tool'];
       langList = ['other_languages'];
       armorList = ['other_armor'];
-      weapList = ['other_Weapons'];
+      weapList = ['other_weapon'];
       otherList = ['other_other'];
       
       toolList.forEach(function (toolitem) {
