@@ -106,6 +106,44 @@ on('ready', function () {
 
     return output;
   };
+  
+  var getOtherProfs = function getOtherProfs(cid2) {
+      var cid = cid2.id;
+      output = '<br>';
+      toolList = ['other_tool'];
+      langList = ['other_languages'];
+      armorList = ['other_armor'];
+      weapList = ['other_Weapons'];
+      otherList = ['other_other'];
+      
+      toolList.forEach(function (toolitem) {
+          if (resolveAttr(cid, toolitem).current.length !== 0) {
+              output += 'Tools: ' + '<small>' + resolveAttr(cid, toolitem).current + '</small>'
+          }
+      });
+      langList.forEach(function (langitem) {
+          if (resolveAttr(cid, langitem).current.length !== 0) {
+              output += '<br>Languages: ' + '<small>' + resolveAttr(cid, langitem).current + '</small>'
+          }
+      });
+      armorList.forEach(function (armitem) {
+          if (resolveAttr(cid, armitem).current.length !== 0) {
+              output += '<br>Armor: ' + '<small>' + resolveAttr(cid, armitem).current + '</small>'
+          }
+      });
+      weapList.forEach(function (weapitem) {
+          if (resolveAttr(cid, weapitem).current.length !== 0) {
+              output += '<br>Weapons: ' + '<small>' + resolveAttr(cid, weapitem).current + '</small>'
+          }
+      });
+      otherList.forEach(function (otheritem) {
+          if (resolveAttr(cid, otheritem).current.length !== 0) {
+              output += '<br>Other: ' + '<small>' + resolveAttr(cid, otheritem).current + '</small>'
+          }
+      });
+      return output;
+      
+  };
 
   var getSpellSlots = function getSpellSlots(cid2) {
     //! Spell slots
@@ -170,7 +208,7 @@ on('ready', function () {
           var charname = character.get('name');
           var charicon = character.get('avatar');
           if (myoutput.length > 0) myoutput += '<br>';
-          myoutput += '<div style=\'display:inline-block; font-variant: small-caps; color:##9d0a0e; font-size:1.8em;margin-top:5px;\'><img src=\'' + charicon + '\' style=\'height:48px;width:auto;margin-right:5px;margin-bottom:0px;margin-top:5px; vertical-align:middle\'>' + charname + '</div>' + getCharOtherAtt(character) + getCharMainAtt(character) + getSpellSlots(character) +getCharProf(character);
+          myoutput += '<div style=\'display:inline-block; font-variant: small-caps; color:##9d0a0e; font-size:1.8em;margin-top:5px;\'><img src=\'' + charicon + '\' style=\'height:48px;width:auto;margin-right:5px;margin-bottom:0px;margin-top:5px; vertical-align:middle\'>' + charname + '</div>' + getCharOtherAtt(character) + getCharMainAtt(character) + getSpellSlots(character) + getCharProf(character) + getOtherProfs(character);
         }
       });
       sendChat(scname, '/w gm <div style=\'border:1px solid black; background-color: #f9f7ec; padding:8px; border-radius: 6px; font-size:0.85em;line-height:0.95em;\'>' + myoutput + '</div>'); // eslint-disable-line quotes
