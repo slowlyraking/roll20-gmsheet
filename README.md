@@ -24,6 +24,6 @@ The script currently shows
 
 
 
-### Slowlyraking chnages
+### Slowlyraking changes
 
 Added display of several stats and passive info (passives, proficiencies, etc) to display. Basically just updated to add some things I frequently check on character sheets.
