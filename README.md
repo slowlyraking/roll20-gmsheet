@@ -20,3 +20,10 @@ The script currently shows
 
 1. Select one or several tokens
 2. Type `!gmsheet` in chat
+
+
+
+
+### Slowlyraking chnages
+
+Added display of several stats and passive info (passives, proficiencies, etc) to display. Basically just updated to add some things I frequently check on character sheets.
